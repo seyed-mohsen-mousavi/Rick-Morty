@@ -1,64 +1,47 @@
-import React from "react";
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+import React, { useEffect } from "react";
 
-function Pagination() {
+function Pagination({ allCharacters, page, setPage, setCharacters }) {
+  const row = 4;
+  useEffect(() => {
+    setCharacters(allCharacters.slice(page * row - row, page * row));
+  }, [page]);
+  const clickHanle = (np) => {
+    if (np) {
+      if (allCharacters.length / 4) {
+        setPage((p) => (p < allCharacters.length / 4 ? (p = p + 1) : p));
+      }
+    } else {
+      setPage((p) => (p > 1 ? (p = p - 1) : p));
+    }
+  };
   return (
     <div>
-      <div class="pagination:container">
-        <div class="pagination:number arrow">
-          <svg width="18" height="18">
-            <use xlink:href="#left" />
-          </svg>
-          <span class="arrow:text">Previous</span>
+      <div className="pagination:container">
+        <div
+          className={`pagination:number arrow ${
+            page > 1 ? "pagination:active" : ""
+          }`}
+          onClick={() => clickHanle(false)}
+        >
+          <ArrowLeftIcon />
+          <span className="arrow:text">Previous Page</span>
         </div>
 
-        <div class="pagination:number">1</div>
-        <div class="pagination:number">2</div>
-
-        <div class="pagination:number pagination:active">3</div>
-
-        <div class="pagination:number">4</div>
-
-        <div class="pagination:number">540</div>
-
-        <div class="pagination:number arrow">
-          <svg width="18" height="18">
-            <use xlink:href="#right" />
-          </svg>
+        <div
+          className={`pagination:number arrow ${
+            page === allCharacters.length / 4 ? "" : "pagination:active"
+          }`}
+          onClick={() => clickHanle(true)}
+        >
+          <span className="arrow:text">Next Page</span>
+          <ArrowRightIcon />
         </div>
       </div>
-
-      <svg class="hide">
-        <symbol
-          id="left"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M15 19l-7-7 7-7"
-          ></path>
-        </symbol>
-        <symbol
-          id="right"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M9 5l7 7-7 7"
-          ></path>
-        </symbol>
-      </svg>
     </div>
   );
 }
 
 export default Pagination;
+
+function Page() {}

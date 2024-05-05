@@ -2,9 +2,9 @@ import { ArrowUpCircleIcon } from "@heroicons/react/20/solid";
 
 function CharacterDetail({ characterSelect }) {
   return (
-    <div>
+    <div style={{ flex: 1 }}>
       {characterSelect ? (
-        <div style={{ flex: 1 }}>
+        <div>
           <div className="character-detail">
             <img
               src={characterSelect.image}

@@ -14,7 +14,9 @@
   --rose-500: #f43f5e;
   --green-600: #22c55e;
 }
-
+html {
+  scroll-behavior: smooth;
+}
 body {
   width: 100vw;
   min-height: 100vh;

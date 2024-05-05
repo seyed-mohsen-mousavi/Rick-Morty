@@ -5,8 +5,11 @@ import CharacterDetail from "./components/CharacterDetail";
 import Navbar from "./components/Navbar";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
+import Pagination from "./components/Pagination";
 function App() {
   const [characters, setCharacters] = useState([]);
+  const [allCharacters, setAllCharacters] = useState([]);
+  const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [characterSelect, setCharacterSelect] = useState();
   useEffect(() => {
@@ -16,7 +19,7 @@ function App() {
         const { data } = await axios.get(
           "https://rickandmortyapi.com/api/character"
         );
-        setCharacters(data.results.slice(0, 5));
+        setAllCharacters(data.results);
       } catch (err) {
         toast.error(err.response.data.error);
       } finally {
@@ -25,17 +28,23 @@ function App() {
     }
     startFetchData();
   }, []);
-  console.log(characterSelect);
   return (
     <div className="app">
       <Toaster />
-      <Navbar characters={characters} setCharacterSelect={setCharacterSelect} />
+      <Navbar numOfcharacters={allCharacters.length} />
       <div className="main">
         <CharacterList
           characters={characters}
           isLoading={isLoading}
           setCharacterSelect={setCharacterSelect}
-        />
+        >
+          <Pagination
+            allCharacters={allCharacters}
+            page={page}
+            setPage={setPage}
+            setCharacters={setCharacters}
+          />
+        </CharacterList>
         <CharacterDetail characterSelect={characterSelect} />
       </div>
     </div>
