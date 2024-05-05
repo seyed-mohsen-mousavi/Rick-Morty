@@ -1,60 +1,44 @@
-import { HeartIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { HeartIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import Modal from "./Modal";
-import { Character } from "./CharacterList";
 
-export default function Navbar({ children }) {
+function Navbar({ characters, setCharacterSelect }) {
+  const [isFocus, setisFocus] = useState(false);
   return (
     <nav className="navbar">
-      <Logo />
-      {children}
+      <div className="navbar__logo">Logo ❤️‍🔥</div>
+      <div className="inpt">
+        <input
+          type="search"
+          className="text-field"
+          onClick={() => setisFocus(!isFocus)}
+          onBlur={() => setisFocus(!isFocus)}
+          placeholder="search ..."
+        />
+        <div className={isFocus ? "" : "hidden"}>
+          <h4># Popular </h4>
+          {characters.map((item) => {
+            return (
+              <button
+                className="popular__btn"
+                key={item.id}
+                onClick={() => setCharacterSelect(item)}
+              >
+                {item.gender === "Male" ? "👨" : "👧"} {item.name}
+                <span className={item.status === "Dead" ? "red" : "green"}>
+                  {item.species}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+      <div className="navbar__result">Find {characters.length} Characters</div>
+      <button className="heart">
+        <HeartIcon className="icon" />
+        <span className="badge">1</span>
+      </button>
     </nav>
   );
 }
 
-function Logo() {
-  return <div className="navbar__logo">LOGO 😍</div>;
-}
-
-export function Search({ query, setQuery }) {
-  return (
-    <input
-      value={query}
-      onChange={(e) => setQuery(e.target.value)}
-      type="text"
-      className="text-field"
-      placeholder="search..."
-    />
-  );
-}
-
-export function SearchResult({ numOfResult }) {
-  return <div className="navbar__result">Found {numOfResult} characters</div>;
-}
-
-export function Favourites({ favourites, onDeleteFavourite }) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <>
-      <Modal onOpen={setIsOpen} open={isOpen} title="List of Favourites">
-        {favourites.map((item) => (
-          <Character key={item.id} item={item}>
-            <button
-              className="icon red"
-              onClick={() => onDeleteFavourite(item.id)}
-            >
-              <TrashIcon />
-            </button>
-          </Character>
-        ))}
-      </Modal>
-      <button className="heart" onClick={() => setIsOpen((is) => !is)}>
-        <HeartIcon className="icon" />
-        <span className="badge">{favourites.length}</span>
-      </button>
-    </>
-  );
-}
-
-// App => Navbar => SearchResult
+export default Navbar;

@@ -35,16 +35,12 @@
 .navbar .heart .badge {
   font-size: 0.9rem;
   position: absolute;
-  top: 0;
+  top: -5px;
   right: -6px;
-  display: inline-block;
   background-color: var(--rose-500);
   color: #fff;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1px 4px;
+  padding: 1px 5.5px;
 }
 
 .main {
@@ -224,4 +220,58 @@
   .character-detail__info .actions {
     flex-direction: row;
   }
+}
+.inpt {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.inpt div {
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  color: white;
+  background-color: var(--slate-800);
+  padding: 8px;
+  border-radius: 10px;
+  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color),
+    0 8px 10px -6px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.inpt div ul li {
+  padding-top: 5px;
+}
+.inpt .popular__btn {
+  margin-top: 6px;
+  padding: 8px 5px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-radius: 10px;
+  transition: 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  opacity: 100;
+  visibility: visible;
+}
+.inpt .popular__btn:hover {
+  background-color: #9290903a;
+}
+
+.inpt .popular__btn span {
+  font-size: 0.7rem;
+  letter-spacing: 0.9px;
+  padding: 1.5px 5px;
+  border-radius: 5px;
+}
+.inpt .popular__btn span.green {
+  background-color: rgba(14, 248, 92, 0.164);
+  color: rgb(115, 221, 98);
+}
+.inpt .popular__btn span.red {
+  background-color: rgba(248, 14, 14, 0.411);
+  color: rgb(223, 142, 142);
 }

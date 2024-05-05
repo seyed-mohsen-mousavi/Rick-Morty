@@ -19,6 +19,7 @@ body {
   width: 100vw;
   min-height: 100vh;
   background-color: var(--slate-900);
+  overflow-x: hidden;
 }
 button {
   background-color: transparent;
@@ -121,4 +122,8 @@ button {
   position: fixed;
   inset: 0;
   background-color: rgba(63, 69, 76, 0.8);
+}
+.hidden {
+  opacity: 0;
+  visibility: hidden;
 }
