@@ -2,8 +2,28 @@ import {
   ArrowUpCircleIcon,
   CursorArrowRaysIcon,
 } from "@heroicons/react/20/solid";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-function CharacterDetail({ characterSelect }) {
+function CharacterDetail({ characterSelect, setFavourite, favourite }) {
+  const [episodes, setEpisodes] = useState([]);
+  const isFav = characterSelect
+    ? favourite.map((f) => f.id).includes(characterSelect.id)
+    : false;
+  useEffect(() => {
+    if (characterSelect) {
+      const episodesId = characterSelect.episode.map((e) =>
+        e.split("/").at(-1)
+      );
+      const data = axios.get(
+        `https://rickandmortyapi.com/api/episode/${episodesId}`
+      );
+      data.then((rs) => {
+        setEpisodes([rs.data].flat().slice(0, 6));
+      });
+    }
+  }, [characterSelect]);
+
   return (
     <div style={{ flex: 1 }}>
       {characterSelect ? (
@@ -33,7 +53,18 @@ function CharacterDetail({ characterSelect }) {
                 <p>{characterSelect.location.name}</p>
               </div>
               <div className="actions">
-                <button className="btn btn--primary">Add To Favourite </button>
+                {isFav ? (
+                  <p>Allready Added To Favourites 💪</p>
+                ) : (
+                  <button
+                    className="btn btn--primary"
+                    onClick={() =>
+                      setFavourite([...favourite, characterSelect])
+                    }
+                  >
+                    Add To Favourite{" "}
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -45,7 +76,7 @@ function CharacterDetail({ characterSelect }) {
               </button>
             </div>
             <ul>
-              {/* {characterSelect.episode.map((item, index) => (
+              {episodes.map((item, index) => (
                 <li key={item.id}>
                   <div className="">
                     {(index + 1).toString().padStart(2, "0")} {item.episode} :{" "}
@@ -53,7 +84,7 @@ function CharacterDetail({ characterSelect }) {
                   </div>
                   <div className="badge badge--secondary">{item.air_date}</div>
                 </li>
-              ))} */}
+              ))}
             </ul>
           </div>
         </div>

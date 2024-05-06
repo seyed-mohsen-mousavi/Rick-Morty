@@ -6,7 +6,6 @@ function Navbar({ children }) {
       <Logo />
 
       {children}
-      <Favouarites />
     </nav>
   );
 }
@@ -31,15 +30,21 @@ export function Search({ query, setQuery }) {
 
 export function SearchResult({ numOfcharacters }) {
   return (
-    <div className="navbar__result">Find <span style={{color:"white" , padding:"0 2px"}}>{numOfcharacters}</span> Characters</div>
+    <div className="navbar__result">
+      Find{" "}
+      <span style={{ color: "white", padding: "0 2px" }}>
+        {numOfcharacters}
+      </span>{" "}
+      Characters
+    </div>
   );
 }
 
-function Favouarites() {
+export function Favouarites({ numOfFavourites }) {
   return (
     <button className="heart">
       <HeartIcon className="icon" />
-      <span className="badge">1</span>
+      <span className="badge">{numOfFavourites}</span>
     </button>
   );
 }

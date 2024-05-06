@@ -2,15 +2,17 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import CharacterList from "./components/CharacterList";
 import CharacterDetail from "./components/CharacterDetail";
-import Navbar, { Search, SearchResult } from "./components/Navbar";
+import Navbar, { Favouarites, Search, SearchResult } from "./components/Navbar";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import Pagination from "./components/Pagination";
+import Github from "./components/Github";
 function App() {
   //
   const [characters, setCharacters] = useState([]);
   const [allCharacters, setAllCharacters] = useState([]);
   const [characterSelect, setCharacterSelect] = useState();
+  const [favourite, setFavourite] = useState([]);
   //
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -44,6 +46,7 @@ function App() {
       <Navbar>
         <Search query={query} setQuery={setQuery} />
         <SearchResult numOfcharacters={allCharacters.length} />
+        <Favouarites numOfFavourites={favourite.length} />
       </Navbar>
       <Main>
         <CharacterList
@@ -59,8 +62,13 @@ function App() {
             setCharacters={setCharacters}
           />
         </CharacterList>
-        <CharacterDetail characterSelect={characterSelect} />
+        <CharacterDetail
+          characterSelect={characterSelect}
+          setFavourite={setFavourite}
+          favourite={favourite}
+        />
       </Main>
+      <Github />
     </div>
   );
 }
