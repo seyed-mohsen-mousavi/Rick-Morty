@@ -11,7 +11,6 @@ function Pagination({ allCharacters, page, setPage, setCharacters }) {
       setPage((p) => (p > 1 ? (p = p - 1) : p));
     }
   };
-  console.log(allCharacters.length);
   return (
     <div>
       <div className="pagination:container">

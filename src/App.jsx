@@ -30,7 +30,8 @@ function App() {
         setAllCharacters(data.results);
       } catch (err) {
         toast.error(err.response.data.error);
-        setCharacters([])
+        setCharacters([]);
+        setAllCharacters([]);
       } finally {
         setIsLoading(false);
       }
@@ -44,11 +45,12 @@ function App() {
         <Search query={query} setQuery={setQuery} />
         <SearchResult numOfcharacters={allCharacters.length} />
       </Navbar>
-      <div className="main">
+      <Main>
         <CharacterList
           characters={characters}
           isLoading={isLoading}
           setCharacterSelect={setCharacterSelect}
+          characterSelect={characterSelect}
         >
           <Pagination
             allCharacters={allCharacters}
@@ -58,8 +60,12 @@ function App() {
           />
         </CharacterList>
         <CharacterDetail characterSelect={characterSelect} />
-      </div>
+      </Main>
     </div>
   );
 }
 export default App;
+
+function Main({ children }) {
+  return <div className="main">{children}</div>;
+}

@@ -35,6 +35,8 @@ button {
   list-style: none;
   border: none;
   outline: none;
+  transform-origin: width;
+  transition: ease-in .2s;
 }
 .text-field {
   padding: 0.7rem 1rem;

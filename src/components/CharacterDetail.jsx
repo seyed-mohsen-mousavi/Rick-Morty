@@ -1,4 +1,7 @@
-import { ArrowUpCircleIcon } from "@heroicons/react/20/solid";
+import {
+  ArrowUpCircleIcon,
+  CursorArrowRaysIcon,
+} from "@heroicons/react/20/solid";
 
 function CharacterDetail({ characterSelect }) {
   return (
@@ -55,7 +58,12 @@ function CharacterDetail({ characterSelect }) {
           </div>
         </div>
       ) : (
-        "sadasd "
+        <div className="alert">
+          <div className="select">
+            <p className="name">Please Select a character.</p>{" "}
+            <CursorArrowRaysIcon />
+          </div>
+        </div>
       )}
     </div>
   );

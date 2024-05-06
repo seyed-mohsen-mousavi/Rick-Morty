@@ -49,11 +49,11 @@
   width: 100%;
   gap: 2rem;
 }
-@media  (max-width: 724px) {
+@media (max-width: 724px) {
   .main {
     flex-direction: column-reverse;
   }
-  .characters-list{
+  .characters-list {
     border-top: 1px solid lightgray;
     padding-top: 20px;
     width: 100% !important;
@@ -119,7 +119,7 @@
 .info {
   color: var(--slate-200);
 }
-@media  (max-width: 1024px) {
+@media (max-width: 1024px) {
   .name {
     padding: 5px 0 0 0;
     font-size: 15px;
@@ -351,6 +351,8 @@
 .loader {
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .loader svg {
@@ -389,4 +391,26 @@
   100% {
     stroke-dashoffset: -125px;
   }
+}
+
+/* alert */
+.alert {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.alert svg {
+  width: 25px;
+  padding-top: 2px;
+  margin-left: 10px;
+}
+.select{
+  display: flex;
+  border: 1px solid;
+  padding: 20px;
+  border-radius: 7px;
+  cursor: default;
 }

@@ -1,10 +1,11 @@
-import { EyeIcon } from "@heroicons/react/24/outline";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import Loader from "./Loader";
 
 function CharacterList({
   characters,
   isLoading,
   setCharacterSelect,
+  characterSelect,
   children,
 }) {
   if (isLoading) {
@@ -21,6 +22,7 @@ function CharacterList({
             key={item.id}
             item={item}
             setCharacterSelect={setCharacterSelect}
+            characterSelect={characterSelect}
           />
         ))}
         {characters.length > 0 ? children : ""}
@@ -31,7 +33,7 @@ function CharacterList({
 
 export default CharacterList;
 
-function Character({ item, setCharacterSelect }) {
+function Character({ item, setCharacterSelect, characterSelect }) {
   return (
     <div
       className="list__item"
@@ -53,7 +55,15 @@ function Character({ item, setCharacterSelect }) {
         <span> - {item.species}</span>
       </div>
       <button className="icon red">
-        <EyeIcon />
+        {characterSelect ? (
+          item.id === characterSelect.id ? (
+            <EyeSlashIcon />
+          ) : (
+            <EyeIcon />
+          )
+        ) : (
+          <EyeIcon />
+        )}
       </button>
     </div>
   );
