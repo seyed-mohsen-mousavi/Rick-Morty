@@ -2,11 +2,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import React, { useEffect } from "react";
 
 function Pagination({ allCharacters, page, setPage, setCharacters }) {
-  const row = 4;
-  useEffect(() => {
-    setCharacters(allCharacters.slice(page * row - row, page * row));
-  }, [page]);
-  const clickHanle = (np) => {
+  const clickPageHanle = (np) => {
     if (np) {
       if (allCharacters.length / 4) {
         setPage((p) => (p < allCharacters.length / 4 ? (p = p + 1) : p));
@@ -15,6 +11,7 @@ function Pagination({ allCharacters, page, setPage, setCharacters }) {
       setPage((p) => (p > 1 ? (p = p - 1) : p));
     }
   };
+  console.log(allCharacters.length);
   return (
     <div>
       <div className="pagination:container">
@@ -22,7 +19,7 @@ function Pagination({ allCharacters, page, setPage, setCharacters }) {
           className={`pagination:number arrow ${
             page > 1 ? "pagination:active" : ""
           }`}
-          onClick={() => clickHanle(false)}
+          onClick={() => clickPageHanle(false)}
         >
           <ArrowLeftIcon />
           <span className="arrow:text">Previous Page</span>
@@ -30,9 +27,11 @@ function Pagination({ allCharacters, page, setPage, setCharacters }) {
 
         <div
           className={`pagination:number arrow ${
-            page === allCharacters.length / 4 ? "" : "pagination:active"
+            page >= allCharacters.length / 4
+              ? ""
+              : "pagination:active"
           }`}
-          onClick={() => clickHanle(true)}
+          onClick={() => clickPageHanle(true)}
         >
           <span className="arrow:text">Next Page</span>
           <ArrowRightIcon />

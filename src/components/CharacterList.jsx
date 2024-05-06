@@ -23,7 +23,7 @@ function CharacterList({
             setCharacterSelect={setCharacterSelect}
           />
         ))}
-        {children}
+        {characters.length > 0 ? children : ""}
       </div>
     );
   }
