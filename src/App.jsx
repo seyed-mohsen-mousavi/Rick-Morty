@@ -7,21 +7,26 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import Pagination from "./components/Pagination";
 import Github from "./components/Github";
+import Modal from "./components/Modal";
 function App() {
   //
   const [characters, setCharacters] = useState([]);
   const [allCharacters, setAllCharacters] = useState([]);
   const [characterSelect, setCharacterSelect] = useState();
-  const [favourite, setFavourite] = useState([]);
+  const [favourite, setFavourite] = useState(
+    () => JSON.parse(localStorage.getItem("FAVOURITE")) || []
+  );
   //
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [query, setQuery] = useState("");
   const row = 4;
   //
+  // pagination
   useEffect(() => {
     setCharacters(allCharacters.slice(page * row - row, page * row));
   }, [page, allCharacters]);
+  // fetch data (axios)
   useEffect(() => {
     async function startFetchData() {
       try {
@@ -40,13 +45,26 @@ function App() {
     }
     startFetchData();
   }, [query]);
+  // set To localStroage
+  useEffect(() => {
+    localStorage.setItem("FAVOURITE", JSON.stringify(favourite));
+  }, [favourite]);
   return (
     <div className="app">
       <Toaster />
       <Navbar>
-        <Search query={query} setQuery={setQuery} />
+        <Search
+          query={query}
+          setQuery={setQuery}
+          setCharacterSelect={setCharacterSelect}
+        />
         <SearchResult numOfcharacters={allCharacters.length} />
-        <Favouarites numOfFavourites={favourite.length} />
+        <Favouarites
+          favourites={favourite}
+          setFavourites={setFavourite}
+          setCharacterSelect={setCharacterSelect}
+          characterSelect={characterSelect}
+        />
       </Navbar>
       <Main>
         <CharacterList

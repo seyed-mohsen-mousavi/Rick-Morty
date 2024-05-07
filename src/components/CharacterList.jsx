@@ -23,7 +23,17 @@ function CharacterList({
             item={item}
             setCharacterSelect={setCharacterSelect}
             characterSelect={characterSelect}
-          />
+          >
+            {characterSelect ? (
+              item.id === characterSelect.id ? (
+                <EyeSlashIcon />
+              ) : (
+                <EyeIcon />
+              )
+            ) : (
+              <EyeIcon />
+            )}
+          </Character>
         ))}
         {characters.length > 0 ? children : ""}
       </div>
@@ -33,16 +43,26 @@ function CharacterList({
 
 export default CharacterList;
 
-function Character({ item, setCharacterSelect, characterSelect }) {
+export function Character({
+  item,
+  setCharacterSelect,
+  characterSelect,
+  onOpen,
+  open,
+  children,
+}) {
   return (
     <div
       className="list__item"
       onClick={() => {
         setCharacterSelect(item);
         scrollTo(0, 0);
+        if (open) {
+          onOpen(false);
+        }
       }}
     >
-      <img src={item.image} alt={item.name} />
+      <img src={item.image} loading="lazy" alt={item.name} />
       <h3 className="name">
         <span>{item.gender === "Male" ? "👨" : "👧"}</span>
         <span> {item.name}</span>
@@ -54,17 +74,7 @@ function Character({ item, setCharacterSelect, characterSelect }) {
         <span> {item.status}</span>
         <span> - {item.species}</span>
       </div>
-      <button className="icon red">
-        {characterSelect ? (
-          item.id === characterSelect.id ? (
-            <EyeSlashIcon />
-          ) : (
-            <EyeIcon />
-          )
-        ) : (
-          <EyeIcon />
-        )}
-      </button>
+      <button className="icon red">{children}</button>
     </div>
   );
 }
