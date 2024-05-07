@@ -41,6 +41,7 @@ button {
   transform-origin: width;
   transition: ease-in 0.2s;
 }
+
 .text-field {
   padding: 0.7rem 1rem;
   border-radius: 0.5rem;
@@ -95,6 +96,7 @@ button {
   padding: 1rem;
   border-radius: 1rem;
   box-shadow: 0px 0px 8px black;
+  z-index: 9999;
 }
 @media (max-width: 765px) {
   .modal {
@@ -116,7 +118,8 @@ button {
   }
   .navbar__result {
     display: none;
-  }.navbar .heart .icon{
+  }
+  .navbar .heart .icon {
     width: 1.5rem;
     height: 1.5rem;
   }
@@ -177,4 +180,9 @@ button {
 .hidden {
   opacity: 0;
   visibility: hidden;
+  transition: all 0.3s ease-in-out;
+}
+.show {
+  opacity: 100;
+  visibility: visible;
 }
