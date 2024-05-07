@@ -2,6 +2,7 @@ import { HeartIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import Modal from "./Modal";
 import { Character } from "./CharacterList";
+import toast from "react-hot-toast";
 
 function Navbar({ children }) {
   return (
@@ -68,6 +69,7 @@ export function Favouarites({
             <TrashIcon
               onClick={(e) => {
                 e.stopPropagation();
+                toast.success("Deleted from Favourites  !");
                 setFavourites(favourites.filter((c) => c.id !== item.id));
               }}
             />

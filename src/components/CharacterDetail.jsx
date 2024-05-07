@@ -4,6 +4,7 @@ import {
 } from "@heroicons/react/24/outline";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 function CharacterDetail({ characterSelect, setFavourite, favourite }) {
   const [episodes, setEpisodes] = useState([]);
@@ -85,7 +86,10 @@ function CharacterSubInfo({ characterSelect, isFav, setFavourite, favourite }) {
           ) : (
             <button
               className="btn btn--primary"
-              onClick={() => setFavourite([...favourite, characterSelect])}
+              onClick={() => {
+                setFavourite([...favourite, characterSelect]);
+                toast.success("Added To Favourite  !");
+              }}
             >
               Add To Favourite{" "}
             </button>
